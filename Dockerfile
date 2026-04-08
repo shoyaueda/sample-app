@@ -1,10 +1,6 @@
-FROM nginx:alpine
+FROM python:3.11-slim
 
-# nginxの設定を上書き
-COPY nginx.conf /etc/nginx/nginx.conf
+WORKDIR /app
+COPY server.py .
 
-# HTML配置
-COPY index.html /usr/share/nginx/html/index.html
-
-# 3000番ポートを公開
-EXPOSE 3000
+CMD ["python", "server.py"]
