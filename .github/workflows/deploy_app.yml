@@ -11,7 +11,7 @@ permissions:
 
 env:
   AWS_REGION: ap-northeast-1
-  ECR_REPOSITORY: sample-app
+  ECR_REPOSITORY: tracespec
 
 jobs:
   build-and-push:
