@@ -12,6 +12,8 @@ permissions:
 env:
   AWS_REGION: ap-northeast-1
   ECR_REPOSITORY: tracespec
+  ECS_CLUSTER: tracespec-cluster
+  ECS_SERVICE: tracespec-service
 
 jobs:
   build-and-push:
@@ -40,3 +42,10 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Force new ECS deployment
+        run: |
+          aws ecs update-service \
+            --cluster $ECS_CLUSTER \
+            --service $ECS_SERVICE \
+            --force-new-deployment
