@@ -40,9 +40,10 @@ jobs:
           docker build --platform linux/amd64 -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-      # - name: Force new ECS deployment
-      #   run: |
-      #     aws ecs update-service \
-      #       --cluster $ECS_CLUSTER \
-      #       --service $ECS_SERVICE \
-      #       --force-new-deployment
+      - name: Force new ECS deployment
+        run: |
+          aws ecs update-service \
+            --cluster $ECS_CLUSTER \
+            --service $ECS_SERVICE \
+            --force-new-deployment \
+            --region $AWS_REGION
